@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- xml파일에는 sql구문만 따로 작성하기 때문에 자바 메서드를 선언할 연동인터페이스를 매칭시켜줍니다. -->
+<mapper namespace="com.spring.blog.repository.ReplyRepository">
+
+    <select id="findAllByBlogId" resultType="com.spring.blog.dto.ReplyFindByBlogIdDTO" parameterType="long">
+        SELECT
+            reply_id as replyId,
+            reply_writer as replyWriter,
+            reply_content as replyContent,
+            published_at as publishedAt,
+            updated_at as updatedAt
+        FROM
+            reply
+        WHERE
+            blog_id = #{blogId}
+    </select>
+
+    <select id="findByReplyId" resultType="com.spring.blog.dto.ReplyResponseDTO" parameterType="long">
+
+        SELECT
+            reply_id as replyId,
+            reply_writer as replyWriter,
+            reply_content as replyContent,
+            published_at as publishedAt,
+            updated_at as updatedAt
+        FROM
+            reply
+        WHERE
+            reply_id = ${replyId};
+    </select>
+
+    <delete id="deleteByReplyId">
+        DELETE FROM
+            reply
+        WHERE
+            reply_id = #{replyId}
+    </delete>
+
+    <insert id="save" parameterType="com.spring.blog.dto.ReplyCreateRequestDTO">
+        INSERT INTO
+            reply
+        VALUES
+            (null, #{blogId}, #{replyWriter}, #{replyContent}, null, null)
+    </insert>
+
+    <update id="update" parameterType="com.spring.blog.dto.ReplyUpdateRequestDTO">
+        UPDATE
+            reply
+        SET
+            reply_writer = #{replyWriter},
+            reply_content = #{replyContent},
+            updated_at = now()
+        WHERE
+            reply_id = #{replyId};
+    </update>
+
+    <delete id="deleteByBlogId">
+        DELETE FROM
+            reply
+        WHERE
+            blog_id = #{blogId};
+    </delete>
+
+</mapper>
