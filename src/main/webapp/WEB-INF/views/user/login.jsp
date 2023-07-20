@@ -12,14 +12,16 @@
     <div class=".container">
         <form action="/login" method="POST">
             <div class="col-3">
-                <!--아이디는 username, 비밀번호는 password로 고정-->
-                <input type="text" name="username"> 
+                <!-- 세션기반 기본 로그인 아이디는 username, 비밀번호는 password로 고정
+                토큰기반에서는 엔터티에서 사용하는 로그인 명칭으로 바꿉니다. -->
+                <input type="text" name="loginId" placeholder="아이디">
             </div>
             <div class="col-3">
-                <input type="password" name="password">
+                <input type="password" name="password" placeholder="비밀번호">
             </div>
-            <div class="form-control"></div>
-            <input type="submit" value="회원가입하기">
+            <div class="form-control">
+            <input type="submit" value="로그인">
+            </div>
         </form>
     </div>
 </body>
